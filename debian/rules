@@ -1,36 +1,4 @@
 #!/usr/bin/make -f
 
-export DH_VERBOSE = 1
-export DEB_BUILD_MAINT_OPTIONS = hardening=+all optimize=+lto
-export DEB_CFLAGS_MAINT_APPEND  = -Wall -pedantic
-export DEB_CXXFLAGS_MAINT_APPEND = -Wall -pedantic
-
-include /usr/share/dpkg/pkg-info.mk
-
-DEB_HOST_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
-
-# LADSPA-only build: disable all non-LADSPA plugin formats
-CMAKEFLAGS := -GNinja \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_LIBDIR=lib \
-    -DBUILD_VERSION=$(DEB_VERSION_UPSTREAM) \
-    -DBUILD_LADSPA_PLUGIN=ON \
-    -DBUILD_LV2_PLUGIN=OFF \
-    -DBUILD_VST_PLUGIN=OFF \
-    -DBUILD_VST3_PLUGIN=OFF \
-    -DBUILD_AU_PLUGIN=OFF \
-    -DBUILD_AUV3_PLUGIN=OFF \
-    -DBUILD_TESTS=OFF \
-    -DBUILD_FOR_RELEASE=ON
-
 %:
-	dh $@ --buildsystem=cmake+ninja
-
-override_dh_auto_configure:
-	dh_auto_configure -- $(CMAKEFLAGS)
-
-override_dh_auto_test:
-	cd obj-$(DEB_HOST_GNU_TYPE) && ctest --output-on-failure
-
-override_dh_auto_install:
-	dh_auto_install --destdir=debian/tmp
+	dh $@
