@@ -1,5 +1,16 @@
-template-repository (1.0-1) unstable; urgency=medium
+noise-suppression-for-voice (1.10+ds-0deepin1) unstable; urgency=medium
 
-  * Initial release
+  * Initial Debian packaging for noise-suppression-for-voice 1.10+ds
 
- -- Tsic404 <liuheng@deepin.org>  Sat, 28 Jan 2023 13:46:49 +0800
+  * LADSPA-only build of real-time noise suppression plugin based on
+  * Xiph's RNNoise library.
+
+  * Packaging highlights:
+      - Exclude JUCE/FST/catch2/toolchains via Files-Excluded (ds repack)
+      - Use system Catch2 v3: find_package(Catch2 3 CONFIG REQUIRED)
+      - Migrate test headers from Catch2 v2 to v3 API
+      - Install to /usr/lib/ladspa/ per LADSPA convention
+      - Full hardening (+all) and LTO (+lto) enabled
+      - 3/3 tests pass, lintian --pedantic clean
+
+ -- Chengyi Zhao <zhaochengyi@uniontech.com>  Wed, 01 Jul 2026 15:08:51 +0800

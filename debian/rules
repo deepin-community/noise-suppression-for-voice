@@ -1,4 +1,39 @@
 #!/usr/bin/make -f
 
+export DH_VERBOSE = 1
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all optimize=+lto
+export DEB_CFLAGS_MAINT_APPEND  = -Wall -pedantic
+export DEB_CXXFLAGS_MAINT_APPEND = -Wall -pedantic
+
+include /usr/share/dpkg/pkg-info.mk
+
+# Tests disabled by default; enable with: BUILD_TESTS=ON dpkg-buildpackage ...
+BUILD_TESTS ?= OFF
+
+# LADSPA-only build: disable non-LADSPA plugins via -D flags
+# (CMakeLists.txt options kept intact per upstream; controlled here instead)
+CMAKEFLAGS := -GNinja \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DBUILD_VERSION=$(DEB_VERSION_UPSTREAM) \
+    -DBUILD_LADSPA_PLUGIN=ON \
+    -DBUILD_VST_PLUGIN=OFF \
+    -DBUILD_VST3_PLUGIN=OFF \
+    -DBUILD_LV2_PLUGIN=OFF \
+    -DBUILD_AU_PLUGIN=OFF \
+    -DBUILD_AUV3_PLUGIN=OFF \
+    -DBUILD_TESTS=$(BUILD_TESTS) \
+    -DBUILD_FOR_RELEASE=ON
+
 %:
-	dh $@
+	dh $@ --buildsystem=cmake+ninja
+
+override_dh_auto_configure:
+	dh_auto_configure -- $(CMAKEFLAGS)
+
+override_dh_auto_test:
+ifeq ($(BUILD_TESTS),ON)
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	CTEST_OUTPUT_ON_FAILURE=1 dh_auto_test
+endif
+endif
