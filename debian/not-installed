@@ -1,0 +1,2 @@
+# Test binary is built but not shipped in the plugin package
+usr/bin/common_plugin_tests

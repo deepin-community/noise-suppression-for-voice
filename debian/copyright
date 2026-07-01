@@ -1,13 +1,62 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: template-repository
-Source: https://github.com/deepin-community/template-repository
+Upstream-Name: noise-suppression-for-voice
+Upstream-Contact: https://github.com/werman/noise-suppression-for-voice/issues
+Source: https://github.com/werman/noise-suppression-for-voice
+Files-Excluded: external/JUCE external/FST external/catch2 src/juce_plugin toolchains
+Comment: Vendored and non-LADSPA build files removed for Debian packaging.
+ external/JUCE (GPLv3) and external/FST (GPLv3): vendored dependencies
+ not needed for LADSPA-only build.
+ external/catch2 (BSL-1.0): replaced by system libcatch2-dev.
+ src/juce_plugin: JUCE plugin source, build requires external/JUCE.
+ toolchains: MinGW cross-compilation toolchains, not needed for Linux build.
 
-Files: *
-Copyright: 2023 Tsic404 <liuheng@deepin.org>
-License: GPL-2+
- This package is free software; you can redistribute it and/or modify
+Files: CMakeLists.txt
+Copyright: 2018-2024 werman <https://github.com/werman>
+License: GPL-3.0+
+
+Files: src/common/*
+ src/ladspa_plugin/CMakeLists.txt
+ src/ladspa_plugin/RnNoiseLadspaPlugin.cpp
+ src/ladspa_plugin/RnNoiseLadspaPlugin.h
+Comment: src/common/src/tests/tests.cpp includes <catch2/catch_all.hpp> at
+ build time, linking against system libcatch2-dev (BSL-1.0, >=3). This does not
+ affect the license of the source file itself.
+Copyright: 2018-2024 werman <https://github.com/werman>
+License: GPL-3.0+
+
+Files: src/ladspa_plugin/ladspa++.h
+Copyright: 2014-2018 Johannes Lorenz <https://github.com/JohannesLorenz/>
+License: GPL-3.0+
+
+Files: src/ladspa_plugin/ladspa.h
+Copyright: 2000-2002 Richard W.E. Furse
+           2000-2002 Paul Barton-Davis
+           2000-2002 Stefan Westerfeld
+License: LGPL-2.1+
+
+Files: external/rnnoise/*
+Copyright: 2017, Mozilla Corporation
+            2007-2017, 2024, Jean-Marc Valin
+            2023, Amazon
+            2005-2017, Xiph.Org Foundation
+            2003-2004, Mark Borgerding
+Comment: BSD-3-Clause variant, clause 3 references "Xiph.Org Foundation"
+ instead of generic "copyright holder and contributors".
+License: BSD-3-Clause
+
+Files: debian/*
+Copyright: 2026 Chengyi Zhao <zhaochengyi@uniontech.com>
+License: GPL-3.0+
+
+Files: LICENSE
+ README.md
+Copyright: 2018-2024 werman <https://github.com/werman>
+License: GPL-3.0+
+
+License: GPL-3.0+
+ This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 of the License, or
+ the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
  .
  This package is distributed in the hope that it will be useful,
@@ -16,7 +65,57 @@ License: GPL-2+
  GNU General Public License for more details.
  .
  You should have received a copy of the GNU General Public License
- along with this program. If not, see <https://www.gnu.org/licenses/>
+ along with this program.  If not, see <https://www.gnu.org/licenses/>.
  .
- On Debian systems, the complete text of the GNU General
- Public License version 2 can be found in "/usr/share/common-licenses/GPL-2".
+ On Debian systems, the full text of the GNU General Public
+ License version 3 can be found in the file
+ '/usr/share/common-licenses/GPL-3'.
+
+License: LGPL-2.1+
+ This library is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+ .
+ This library is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+ .
+ You should have received a copy of the GNU Lesser General Public
+ License along with this library; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA.
+ .
+ On Debian systems, the full text of the GNU Lesser General Public
+ License version 2.1 can be found in the file
+ '/usr/share/common-licenses/LGPL-2.1'.
+
+License: BSD-3-Clause
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions
+ are met:
+ .
+ 1. Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+ .
+ 2. Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the
+    distribution.
+ .
+ 3. Neither the name of the copyright holder nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+ .
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+ FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+ COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+ ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ POSSIBILITY OF SUCH DAMAGE.

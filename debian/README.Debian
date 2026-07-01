@@ -1,0 +1,33 @@
+rnnoise-plugin-ladspa
+=====================
+
+Plugin Format
+-------------
+This package provides the LADSPA plugin format only.
+
+  * LADSPA - librnnoise_ladspa.so
+
+Plugin labels:
+  - noise_suppressor_mono   (mono, 1 channel)
+  - noise_suppressor_stereo (stereo, 2 channels)
+
+PipeWire Integration
+--------------------
+This package is designed to work with PipeWire's filter-chain module.
+The PipeWire configuration for this plugin is provided by the pipewire
+package (or the distribution-specific pipewire configuration package).
+
+The LADSPA plugin is installed at:
+    /usr/lib/ladspa/librnnoise_ladspa.so
+
+System administrators may override the default configuration by creating
+a file at:
+    /etc/pipewire/filter-chain.conf.d/99-input-rnnoise.conf
+
+Important Notes
+---------------
+  * The plugin ONLY works with 48000 Hz sample rate audio input.
+  * The plugin is meant to suppress noise, NOT to improve voice quality
+    with a bad microphone.
+
+ -- Chengyi Zhao <zhaochengyi@uniontech.com>  Wed, 01 Jul 2026 15:08:51 +0800
