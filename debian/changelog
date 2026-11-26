@@ -1,3 +1,10 @@
+noise-suppression-for-voice (1.10+ds-0deepin2) unstable; urgency=medium
+
+  * Rename the binary package from rnnoise-plugin-ladspa to
+    noise-suppression-for-voice-plugin-ladspa.
+
+ -- Chengyi Zhao <zhaochengyi@uniontech.com>  Thu, 26 Nov 2026 20:45:05 +0800
+
 noise-suppression-for-voice (1.10+ds-0deepin1) unstable; urgency=medium
 
   * Initial Debian packaging for noise-suppression-for-voice 1.10+ds
