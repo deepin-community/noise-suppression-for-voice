@@ -13,7 +13,7 @@ Vcs-Browser: https://github.com/deepin-community/noise-suppression-for-voice
 Vcs-Git: https://github.com/deepin-community/noise-suppression-for-voice.git
 Rules-Requires-Root: no
 
-Package: rnnoise-plugin-ladspa
+Package: noise-suppression-for-voice-plugin-ladspa
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Recommends: pipewire (>= 1.6.0), rtkit-daemon
